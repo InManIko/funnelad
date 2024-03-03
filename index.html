@@ -1,37 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tarjima Algoritmi</title>
-<style>
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-}
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+    <h2>Countdown Timer</h2>
+    <p id="timer">00:20:00</p>
+    <div id="videoPlayer">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/id0B0hyrR8c" frameborder="0" allowfullscreen></iframe>
+    </div>
 
-<div class="video-container">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/id0B0hyrR8c?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
+    <script>
+        let timer;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+        let videoUrl = "https://www.youtube.com/embed/id0B0hyrR8c"; // Replace YOUR_VIDEO_ID with your actual video ID
 
-<script>
-setTimeout(function(){
-    document.querySelector('.video-container').style.display = 'none';
-}, 1200000); // 20 minutes in milliseconds
-</script>
+        function startTimer() {
+            hours = 0;
+            minutes = 20;
+            seconds = 0;
 
+            document.getElementById('videoPlayer').style.display = 'block'; // Show the embedded video
+
+            timer = setInterval(function() {
+                if (hours === 0 && minutes === 0 && seconds === 0) {
+                    clearInterval(timer);
+                    document.getElementById('timer').innerHTML = "00:00:00";
+                    document.getElementById('videoPlayer').style.display = 'none'; // Hide the embedded video
+                } else {
+                    if (seconds === 0) {
+                        seconds = 59;
+                        if (minutes === 0) {
+                            minutes = 59;
+                            if (hours !== 0) {
+                                hours--;
+                            }
+                        } else {
+                            minutes--;
+                        }
+                    } else {
+                        seconds--;
+                    }
+                    document.getElementById('timer').innerHTML = ${(hours < 10 ? '0' : '') + hours}:${(minutes < 10 ? '0' : '') + minutes}:${(seconds < 10 ? '0' : '') + seconds};
+                }
+            }, 1000);
+        }
+
+        // Automatically start the timer when the page loads
+        window.onload = function() {
+            startTimer();
+        };
+    </script>
 </body>
 </html>
 
