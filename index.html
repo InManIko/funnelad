@@ -1,67 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
-    <style>
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+    <title>Page Timer</title>
+    <script type="text/javascript">
+        var startTime = new Date().getTime() - (20 * 60 * 1000); // Set timer for 20 minutes
+        function updateTimer() {
+            var currentTime = new Date().getTime();
+            var elapsedTime = currentTime - startTime;
+            var seconds = Math.floor(elapsedTime / 1000);
+            var minutes = Math.floor(seconds / 60);
+            seconds = seconds % 60;
+            document.getElementById("timer").innerHTML = "Time elapsed: " + minutes + " minutes " + seconds + " seconds";
         }
-    </style>
+        setInterval(updateTimer, 1000);
+    </script>
 </head>
 <body>
-    <h2>Countdown Timer</h2>
-    <p id="timer">00:20:00</p>
-    <div id="videoPlayer">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/id0B0hyrR8c?rel=0" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <script>
-        let timer;
-        let seconds = 0;
-        let minutes = 0;
-        let hours = 0;
-        let videoUrl = "https://www.youtube.com/embed/id0B0hyrR8c?rel=0"; // Replace YOUR_VIDEO_ID with your actual video ID
-
-        function startTimer() {
-            hours = 0;
-            minutes = 20;
-            seconds = 0;
-
-            document.getElementById('videoPlayer').style.display = 'block'; // Show the embedded video
-
-            timer = setInterval(function() {
-                if (hours === 0 && minutes === 0 && seconds === 0) {
-                    clearInterval(timer);
-                    document.getElementById('timer').innerHTML = "00:00:00";
-                    document.getElementById('videoPlayer').style.display = 'none'; // Hide the embedded video
-                } else {
-                    if (seconds === 0) {
-                        seconds = 59;
-                        if (minutes === 0) {
-                            minutes = 59;
-                            if (hours !== 0) {
-                                hours--;
-                            }
-                        } else {
-                            minutes--;
-                        }
-                    } else {
-                        seconds--;
-                    }
-                    document.getElementById('timer').innerHTML = ${(hours < 10 ? '0' : '') + hours}:${(minutes < 10 ? '0' : '') + minutes}:${(seconds < 10 ? '0' : '') + seconds};
-                }
-            }, 1000);
-        }
-
-        // Automatically start the timer when the page loads
-        window.onload = function() {
-            startTimer();
-        };
-    </script>
+    <h1>Page Timer</h1>
+    <p id="timer">Time elapsed: 0 minutes 0 seconds</p>
 </body>
 </html>
 
